@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forms</title>
+    <link rel="stylesheet" href="css/form.css">
+</head>
+<body>
+    <div class="forms">
+        <form action="" onsubmit="return validateForm()">
+            <div class="form">
+                <h1>Обратная связь</h1>
+                <p>Почта</p>
+                <input type="email" id="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                <p>Сообщение</p>
+                <textarea name="" id="message" required minlength="10" oninput="updateCounter()"></textarea> 
+                <div class="counter">
+                    <span id="charCount">0</span>/500 символов
+                </div>
+                <br>
+                <button type="submit">Отправить!</button>
+            </div>
+        </form>
+        <div class="img">
+            <img src="img/gif.gif" alt="">
+        </div>
+    </div>
+
+    <script>
+        function updateCounter() {
+            const message = document.getElementById('message');
+            const counter = document.getElementById('charCount');
+            counter.textContent = message.value.length;
+            
+            if (message.value.length > 500) {
+                message.value = message.value.substring(0, 500);
+                counter.textContent = 500;
+            }
+        }
+
+        function validateForm() {
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            if (!email || !message) {
+                alert('Пожалуйста, заполните все поля');
+                return false;
+            }
+            
+            if (message.length < 10) {
+                alert('Сообщение должно содержать минимум 10 символов');
+                return false;
+            }
+            
+            return confirm('Вы уверены, что хотите отправить сообщение?');
+        }
+    </script>
+</body>
+</html>
